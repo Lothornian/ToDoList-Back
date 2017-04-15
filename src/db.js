@@ -1,6 +1,9 @@
 import { MongoClient } from 'mongodb';
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/ToDoList';
+const schema = 'ToDoList';
+const port = '27017';
+
+const mongoUri = process.env.MONGO_URI || `mongodb://localhost:${port}/${schema}`;
 
 const connect = async () => await MongoClient.connect(mongoUri);
 
