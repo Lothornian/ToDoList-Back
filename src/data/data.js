@@ -7,3 +7,4 @@ export let item2 = new item( 'second thing', "I'll do this after the first thing
 export const user1 = new user( 'Kyle Hunt', 'KyleRHunt@Gmail.com' );
 
 export items = [item1, item2];
+export users = [user1];
