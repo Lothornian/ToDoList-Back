@@ -12,7 +12,7 @@ router.get( '/', (req, res) => {
 router.get( '/:item', (req,res) => {
 
   let item = items.filter( item => item.id == req.params.item);
-  return res.json();
+  return res.json(item);
 
 });
 
