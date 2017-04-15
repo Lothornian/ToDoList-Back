@@ -16,5 +16,14 @@
       "babel-polyfill",
       "babel-register"
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-pundits": "^2.0.3",
+    "babel-register": "^6.22.0"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
   }
 }
