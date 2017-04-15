@@ -1,5 +1,5 @@
 import { Router } from 'Express';
-import users from '../data/data.js';
+import { users } from '../data/data.js';
 
 const router = new Router();
 
@@ -15,3 +15,5 @@ router.get ( '/:email', (req,res) => {
   return res.json(user);
 
 });
+
+export default router;

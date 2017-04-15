@@ -1,5 +1,6 @@
 export default class {
-  constructor( summary, description, dueDate, user, isComplete = false){
+  constructor( id, summary, description, dueDate, user, isComplete = false){
+    this.id = id;
     this.summary = summary;
     this.description = description;
     this.dueDate = dueDate;
