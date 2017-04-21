@@ -1,5 +1,6 @@
 import Express from 'express';
 import Parser from 'body-parser';
+import cors from 'cors';
 
 import {loadData} from './data/data.js';
 import {deleteData} from './data/data.js';
@@ -16,15 +17,18 @@ import items from './routes/items.js';
 
 const ENV = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const app = Express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
+
+console.log(port);
 
 //Only load seed data when in development
-if( ENV == 'development' ){
+if( ENV === 'development' ){
   deleteData();
   loadData();
 };
 
 //Create routes for users and items.
+app.use(cors());
 app.use(Parser.json());
 app.use('/users', users);
 app.use('/items', items);
