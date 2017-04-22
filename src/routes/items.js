@@ -1,7 +1,7 @@
 import { Router } from 'Express';
-
 import { getCollection } from '../db.js';
 import { items } from '../data/data.js';
+import Item from '../data/item.js';
 
 /**
  * Items.js
@@ -68,5 +68,40 @@ router.get( '/:item', (req,res) => {
     }
   );
 });
+
+/*
+ * /items/ Post Route
+ * Used to store a new item in Mongo
+ *
+ * @param id The Id of the item
+ * @param summary The one line summary of the item
+ * @param description The long description or details of the item
+ * @param dueDate The due date for the item. in mm/dd/yyyy format
+ * @param user the user who owns the item
+ *
+ * @return The newly created instance of the item.
+ */
+router.post( '/', (req,res) => {
+  let item = new Item(
+    req.body.id,
+    req.body.summary,
+    req.body.description,
+    req.body.dueDate,
+    req.body.user
+  ); //end new Item
+  storeItem(item);
+  return res.json(item);
+}); //end router.post ( '/'
+
+/*
+ * store Item
+ * Used to store an item in the attached database
+ *
+ * @param item The item to be stored.
+ */
+const storeItem = async(item) => {
+  const itemCollection = await getCollection('items');
+  itemCollection.insertOne(item);
+} // end storeItem
 
 export default router;
