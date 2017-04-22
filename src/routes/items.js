@@ -1,4 +1,5 @@
 import { Router } from 'Express';
+
 import { getCollection } from '../db.js';
 import { items } from '../data/data.js';
 import Item from '../data/item.js';
@@ -24,7 +25,7 @@ const router = new Router();
 const getAllItems = async() => {
   const itemsCollection = await getCollection('items');
 
-  return await ( await itemsCollection.find({}) ).toArray();
+  return await ( await itemsCollection.find({ active: true}) ).toArray();
 }//end getAllItems
 
 /*
@@ -94,7 +95,7 @@ router.post( '/', (req,res) => {
 }); //end router.post ( '/'
 
 /*
- * store Item
+ * storeItem
  * Used to store an item in the attached database
  *
  * @param item The item to be stored.
@@ -103,5 +104,42 @@ const storeItem = async(item) => {
   const itemCollection = await getCollection('items');
   itemCollection.insertOne(item);
 } // end storeItem
+
+/*
+ * /items/:itemId Delete route
+ * Used to delete an item from the list.
+ * Note: The item is archived and still exists in the database.
+ */
+router.delete( '/:itemId', (req,res) => {
+  removeItem(req.params.itemId);
+  return res.send( `item ${req.params.itemId} has been deleted` );
+});
+
+/*
+ * removeItem
+ * Used to set the active flag to false on an item.
+ * This will effectivly delete the item for the user.
+ */
+const removeItem = async(itemId) => {
+  const itemCollection = await getCollection('items');
+  itemCollection.updateOne(
+    { id: parseInt(itemId) },
+    {
+      $set: { "active": false }
+    }
+  );
+}
+
+/*
+ * deleteItem
+ * Used to remove an item from the database.
+ * Don't remove data, it doesn't end well..
+ */
+ const deleteItem = async(itemId) => {
+   const itemCollection = await getCollection('items');
+   itemCollection.deleteOne(
+     { id: parseInt(itemId) }
+   );
+ }
 
 export default router;

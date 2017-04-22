@@ -21,5 +21,6 @@ export default class {
     this.dueDate = dueDate;
     this.isComplete = isComplete;
     this.user = user;
+    this.active = true;
   }// end constructor method
 }
