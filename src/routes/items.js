@@ -35,7 +35,7 @@ const getAllItems = async() => {
  * @param id - the id of the item
  * @return an item
  */
-const getItem = async(id) => {
+export const getItem = async(id) => {
   id = parseInt(id);
   const itemsCollection = await getCollection('items');
   const value = await ( await itemsCollection.find({ id }) ).toArray();
