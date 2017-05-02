@@ -1,4 +1,4 @@
-import { Router } from 'Express';
+import { Router } from 'express';
 import { users } from '../data/data.js';
 import { getCollection } from '../db.js';
 import User from "../data/user.js";
